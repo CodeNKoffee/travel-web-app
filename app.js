@@ -115,23 +115,46 @@ app.get("/:category/:location", (req, res) => {
 
 ///////////////////////// POST route for search ^_^ (25%)///////////////////////////////
 
-app.post("/search", (req, res) => {
+const location = [
+  { name: "annapurna", url: "/hiking/annapurna", img: "annapurna.png" },
+  { name: "bali", url: "/islands/bali", img: "bali.png" },
+  { name: "inca", url: "/hiking/inca", img: "inca.png" },
+  { name: "paris", url: "/cities/paris", img: "paris.png" },
+  { name: "rome", url: "/cities/rome", img: "rome.png" },
+  { name: "santorini", url: "/islands/santorini", img: "santorini.png" }
+];
+
+
+app.post('/search', (req, res) => {
   const { Search } = req.body;
   console.log(req.body);
+  
   // if there is no input data output an error
   if (!Search) {
     return res.status(400).json({ error: "Search term is missing" });
   }
-  //.filter creates a new array that satisfies a certain criteria
-  const out = locations.filter((locations) => {
-    // used the function .tolowercase() to be case insensitive
-    return locations.name.toLowerCase().includes(Search.toLowerCase());
-  });
-  // Respond with the search term and filtered results (out)
-  res.json({ searchTerm: Search, results: out });
 
-  //res.json({find});
+  // Filter locations based on the search term
+  const out = location.filter((location) => {
+    return location.name.toLowerCase().includes(Search.toLowerCase());
+  });
+
+  // Check if a location is found and render the page or send a JSON response
+  if (out.length > 0) {
+    return res.render('searchedStuff', { results: out }); // Render searchedStuff.ejs with the results
+  }
+
+  // If no results are found, send an error response
+  return res.status(404).json({ error: "No matching locations found" });
 });
+
+
+
+
+
+app.get("/helloKitty", (req, res) => {
+  res.render("rome");
+})
 
 // GET route - Dashboard (just as an example)
 app.get("/dashboard", (req, res) => {
