@@ -7,6 +7,10 @@
 - Mariam Ayman
 - Aly Tamer
 
+## Walkthrough
+
+You can check out this Loom video here for a quick walkthrough the app: https://www.loom.com/share/a2b35b5070214db2baf735067953ce34?sid=16167ffb-4f74-49f5-84d6-b0fa731df132
+
 Table of Contents
 
     •	Project Overview
